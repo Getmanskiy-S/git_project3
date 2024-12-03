@@ -1,15 +1,14 @@
 import sys
 from random import randint
-
-from PyQt6 import uic  # Импортируем uic
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtGui import QPainter, QColor, QPen
+from UI import Ui_MainWindow
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)  # Загружаем дизайн
+        self.setupUi(self)
         self.do_paint = False
         self.pushButton.clicked.connect(self.paint)
         # Обратите внимание: имя элемента такое же как в QTDesigner
@@ -29,7 +28,7 @@ class MyWidget(QMainWindow):
     def draw_flag(self, qp):
         pen = QPen()
         pen.setWidth(3)
-        pen.setColor(QColor(255, 255, 0))
+        pen.setColor(QColor(randint(0, 255), randint(0, 255), randint(0, 255)))
         qp.setPen(pen)
         ri = randint(100, 250)
         qp.drawEllipse(220, 70, ri, ri)
